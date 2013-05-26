@@ -1,3 +1,5 @@
+require File.expand_path('../rules.rb', __FILE__)
+
 module RomanConverter
   class RomanUtil
     attr_reader :roman_array
@@ -32,7 +34,7 @@ module RomanConverter
     end
 
     def is_invalid?
-      is_invalid_elements? ||
+      is_invalid_numerals? ||
       is_repeating_succession? ||
       invalidate_never_repeatable_elements? ||
       invalidate_repeatable_elements? ||
@@ -42,7 +44,7 @@ module RomanConverter
     # Checks whether all the elements have proper roman numerals
     # => true / false
     def is_invalid_numerals?
-      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys).size != 0
+      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys).size != @roman_array.size
     end
 
     # Returns true if there is more than **MAX_SUCCESSIVE** successive elements
