@@ -2,7 +2,7 @@
 require File.expand_path('../lib/roman_converter/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Manju"]
+  gem.authors       = ["Manjunath Manohar"]
   gem.email         = ["manjunath.nm89@gmail.com"]
   gem.description   = "Roman Converter converts a roman numeral to an english / modern number. Making sure all rules invloved in the formation of a roman numeral is obeyed."
   gem.summary       = "Roman Converter converts a roman numeral to an english / modern number"
