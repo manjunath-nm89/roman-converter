@@ -57,8 +57,8 @@ module RomanConverter
     # => true/false
     def invalidate_never_repeatable_elements?
       chunk_hash = generate_occurrence_hash
-      RomanConverter::Rules::Mapper::NEVER_REPEATABLE.each do |roman_literal|
-        return true if chunk_hash[roman_literal] && (chunk_hash[roman_literal] > 1)
+      RomanConverter::Rules::Mapper::NEVER_REPEATABLE.select{|element| !chunk_hash[element].nil? }.each do |roman_literal|
+        return true if chunk_hash[roman_literal] > 1
       end
       return false
     end
@@ -71,12 +71,14 @@ module RomanConverter
       chunk_hash = generate_occurrence_hash
       chunk_list = generate_occurrence_list
       RomanConverter::Rules::Mapper::REPEATABLE.each do |roman_literal|
+        next if chunk_hash[roman_literal].nil?
         if chunk_hash[roman_literal] > RomanConverter::Rules::MAX_OCCURENCE
           return true
         elsif chunk_hash[roman_literal] == Rules::MAX_OCCURENCE
           chunk_list_index = chunk_list.find_index{|chunk_array| chunk_array.first == roman_literal}
           next_index = chunk_list_index + 1
-          return true if chunk_list[next_index].nil? || compare_mapper_values?(chunk_list[next_index].first, roman_literal)
+          # Check for only one small character can occur between **MAX_OCCCURRENCE** times repeating character is made.
+          return true if chunk_list[next_index].nil? || (chunk_list[next_index].last > 1) || compare_mapper_values?(chunk_list[next_index].first, roman_literal, false)
         end
       end
       return false
