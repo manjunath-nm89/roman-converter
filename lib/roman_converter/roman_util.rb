@@ -1,9 +1,42 @@
 module RomanConverter
-  class RuleUtil
+  class RomanUtil
     attr_reader :roman_array
 
     def initialize(roman_array)
       @roman_array = roman_array
+    end
+
+    # Converts the roman numerals into english mumber
+    # => english number / false if invalid roman numeral combination
+    def compute_number
+      is_invalid? ? false : generate_number
+    end
+
+
+    # This method can be called directly on the roman_utils object provided the **roman_array** is valid?
+    # Adds the values, if subtraction is required, then the iterator moves back and subtracts the value
+    # => english number
+    def generate_number
+      number = 0
+      @roman_number.each_with_index do |roman_number, array_index|
+        current_element_value = RomanConverter::Rules::Mapper::VALUES[roman_number]
+        number += current_element_value
+        if array_index > 0 
+          previous_element_value = RomanConverter::Rules::Mapper::VALUES[@roman_number[array_index - 1]]
+          if previous_element_value < current_element_value
+            # Here 2 is multiplied as the **previous_element_value** was previously added to the **number**
+            number -= (previous_element_value * 2)
+          end
+        end
+      end
+    end
+
+    def is_invalid?
+      is_invalid_elements? ||
+      is_repeating_succession? ||
+      invalidate_never_repeatable_elements? ||
+      invalidate_repeatable_elements? ||
+      invalidate_subtractable_elements?
     end
 
     # Checks whether all the elements have proper roman numerals

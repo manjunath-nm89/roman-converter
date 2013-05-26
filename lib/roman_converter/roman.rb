@@ -1,30 +1,26 @@
 require "rules.rb"
-require "rule_util.rb"
+require "roman_util.rb"
 
 module RomanConverter
   class Roman
     attr_reader :input, :roman_array
+    attr_accessor :roman_util
 
     def initialize(string)
       @input = string
-      @roman_array = split_to_roman
-    end
-
-    def split_to_roman
-      @input.split("")
+      @roman_array = @input.split("")
+      @roman_util = RomanUtil.new(@roman_array)
     end
 
     def is_valid?
-      rule_util = RuleUtil.new(@roman_array)
-      !is_invalid?(rule_util)
+      !@roman_util.is_invalid?
     end
 
-    def is_invalid?(rule_util)
-      rule_util.is_invalid_elements? ||
-      rule_util.is_repeating_succession? ||
-      rule_util.invalidate_never_repeatable_elements? ||
-      rule_util.invalidate_repeatable_elements? ||
-      rule_util.invalidate_subtractable_elements?
+    # Converts the roman numerals into english mumber
+    # => english number / false if invalid roman numeral combination
+    def convert_to_number
+      @roman_util.compute_number
     end
+
   end
 end
