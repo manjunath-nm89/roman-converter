@@ -76,4 +76,33 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
     roman_util = create_roman_util("XXXCX")
     assert roman_util.invalidate_repeatable_elements?
   end
+
+  def test_invalidate_subtractable_elements_for_never_repeatable
+    roman_util = create_roman_util("D")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("DI")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("ID")
+    assert roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("IV")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("IX")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("XL")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("XV")
+    assert roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("CD")
+    assert_false roman_util.invalidate_subtractable_elements?
+
+    roman_util = create_roman_util("CV")
+    assert roman_util.invalidate_subtractable_elements?
+  end
 end
