@@ -9,7 +9,7 @@ module RomanConverter
     # Checks whether all the elements have proper roman numerals
     # => true / false
     def is_invalid_numerals?
-      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys) != @roman_array.size
+      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys).size != 0
     end
 
     # Returns true if there is more than **MAX_SUCCESSIVE** successive elements
