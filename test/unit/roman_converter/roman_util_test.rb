@@ -28,9 +28,11 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
 
     roman_util = RomanConverter::RomanUtil.new(create_roman_array("MMMMM"))
     assert roman_util.is_repeating_succession?
+    assert roman_util.is_invalid?
 
     roman_util = RomanConverter::RomanUtil.new(create_roman_array("MMMMCCCCC"))
     assert roman_util.is_repeating_succession?
+    assert roman_util.is_invalid?
   end
 
 private
