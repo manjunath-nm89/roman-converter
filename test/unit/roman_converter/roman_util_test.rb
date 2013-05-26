@@ -134,6 +134,9 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
     roman_util = create_roman_util("MMXIII")
     assert_equal 2013, roman_util.compute_number    
 
+    roman_util = create_roman_util("XVI")
+    assert_equal 16, roman_util.compute_number    
+
     roman_util = create_roman_util("MMXIIII")
     assert_false roman_util.compute_number    
 
