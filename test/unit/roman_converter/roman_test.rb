@@ -1,5 +1,4 @@
 require 'test/unit'
-require "debugger"
 require File.expand_path('../../../../lib/roman_converter/roman.rb', __FILE__)
 require File.expand_path('../../../../test/test_helper.rb', __FILE__)
 
