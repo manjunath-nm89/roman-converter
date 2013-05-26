@@ -1,6 +1,8 @@
 # RomanConverter
 
-Roman Converter converts a roman numeral to an english / modern number
+Roman Converter converts a roman numeral to an english / modern number. 
+
+The gem checks for the validity of the roman numeral string, before converting.
 
 ## Installation
 
@@ -17,13 +19,30 @@ Or install it yourself as:
     $ gem install roman_converter
 
 ## Usage
+    
+    The gem provides a method called `to_number`,  this converts the roman numeral string into number.
+    But this is based on the validity of the Roman Numeral String.
 
-TODO: Write usage instructions here
+    > require "roman_converter"
+    => true
+    > "MM".to_number
+    => 2000
+    > "VV".to_number
+    => false
+    > "manju".to_number
+    => false
+    > "XXXIX".to_number
+    => 39
+
+## Tests
+
+    $ rake test    
 
 ## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+3. Please add tests for the feature which you have built
+4. Commit your changes (`git commit -am 'Added some feature'`)
+5. Push to the branch (`git push origin my-new-feature`)
+6. Create new Pull Request
