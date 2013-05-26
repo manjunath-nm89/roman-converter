@@ -9,7 +9,7 @@ module RomanConverter
     def initialize(string)
       @input = string
       @roman_array = @input.split("")
-      @roman_util = RomanUtil.new(@roman_array)
+      @roman_util = RomanConverter::RomanUtil.new(@roman_array)
     end
 
     def is_valid?
