@@ -105,4 +105,24 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
     roman_util = create_roman_util("CV")
     assert roman_util.invalidate_subtractable_elements?
   end
+
+  def test_compute_number
+    roman_util = create_roman_util("D")
+    assert_equal 500, roman_util.compute_number
+
+    roman_util = create_roman_util("M")
+    assert_equal 1000, roman_util.compute_number
+
+    roman_util = create_roman_util("V")
+    assert_equal 5, roman_util.compute_number
+
+    roman_util = create_roman_util("IV")
+    assert_equal 4, roman_util.compute_number
+
+    roman_util = create_roman_util("XXXIX")
+    assert_equal 39, roman_util.compute_number
+
+    roman_util = create_roman_util("MCMXC")
+    assert_equal 1990, roman_util.compute_number
+  end
 end

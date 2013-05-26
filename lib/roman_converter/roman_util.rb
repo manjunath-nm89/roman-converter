@@ -20,17 +20,18 @@ module RomanConverter
     # => english number
     def generate_number
       number = 0
-      @roman_number.each_with_index do |roman_number, array_index|
+      @roman_array.each_with_index do |roman_number, array_index|
         current_element_value = RomanConverter::Rules::Mapper::VALUES[roman_number]
         number += current_element_value
         if array_index > 0 
-          previous_element_value = RomanConverter::Rules::Mapper::VALUES[@roman_number[array_index - 1]]
+          previous_element_value = RomanConverter::Rules::Mapper::VALUES[@roman_array[array_index - 1]]
           if previous_element_value < current_element_value
             # Here 2 is multiplied as the **previous_element_value** was previously added to the **number**
             number -= (previous_element_value * 2)
           end
         end
       end
+      number
     end
 
     def is_invalid?
@@ -44,7 +45,7 @@ module RomanConverter
     # Checks whether all the elements have proper roman numerals
     # => true / false
     def is_invalid_numerals?
-      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys).size != @roman_array.size
+      (@roman_array & RomanConverter::Rules::Mapper::VALUES.keys).size != @roman_array.uniq.size
     end
 
     # Returns true if there is more than **MAX_SUCCESSIVE** successive elements
@@ -96,13 +97,17 @@ module RomanConverter
       RomanConverter::Rules::Mapper::SUBTRACTABLE_ELEMENTS.each do |roman_literal|
         next_elements = get_next_elements(roman_literal)
         next_elements.each do |next_element|
-          return true if !next_element.nil? && !RomanConverter::Rules::Mapper::SUBTRACTABLE_ELIGIBLE[roman_literal].include?(next_element)
+          return true if !next_element.nil? && can_subtract?(roman_literal, next_element) && !RomanConverter::Rules::Mapper::SUBTRACTABLE_ELIGIBLE[roman_literal].include?(next_element)
         end
       end
       return false
     end
 
   private
+
+    def can_subtract?(key1, key2)
+      compare_mapper_values?(key1, key2)
+    end
 
     def compare_mapper_values?(key1, key2, lesser = true)
       lesser ? mapper_value_less_than?(key1, key2) : mapper_value_greater_than?(key1, key2)
