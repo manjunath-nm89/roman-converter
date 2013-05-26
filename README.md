@@ -1,6 +1,6 @@
 # RomanConverter
 
-TODO: Write a gem description
+Roman Converter converts a roman numeral to an english / modern number
 
 ## Installation
 
