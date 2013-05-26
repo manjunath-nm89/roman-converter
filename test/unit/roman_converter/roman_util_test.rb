@@ -97,12 +97,12 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
     assert_false roman_util.invalidate_subtractable_elements?
 
     roman_util = create_roman_util("XV")
-    assert roman_util.invalidate_subtractable_elements?
+    assert_false roman_util.invalidate_subtractable_elements?
 
     roman_util = create_roman_util("CD")
     assert_false roman_util.invalidate_subtractable_elements?
 
-    roman_util = create_roman_util("CV")
+    roman_util = create_roman_util("VC")
     assert roman_util.invalidate_subtractable_elements?
   end
 
@@ -124,5 +124,14 @@ class RomanConverter::RomanUtilTest < Test::Unit::TestCase
 
     roman_util = create_roman_util("MCMXC")
     assert_equal 1990, roman_util.compute_number
+
+    roman_util = create_roman_util("CV")
+    assert_equal 105, roman_util.compute_number
+
+    roman_util = create_roman_util("VC")
+    assert_false roman_util.compute_number
+
+    roman_util = create_roman_util("XV")
+    assert_equal 15, roman_util.compute_number
   end
 end
