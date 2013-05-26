@@ -58,7 +58,7 @@ module RomanConverter
     def invalidate_never_repeatable_elements?
       chunk_hash = generate_occurrence_hash
       RomanConverter::Rules::Mapper::NEVER_REPEATABLE.each do |roman_literal|
-        return true if chunk_hash[roman_literal] > 1
+        return true if chunk_hash[roman_literal] && (chunk_hash[roman_literal] > 1)
       end
       return false
     end
