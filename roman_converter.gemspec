@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "roman_converter"
   gem.require_paths = ["lib"]
   gem.version       = RomanConverter::VERSION
+  
+  gem.add_development_dependency 'debugger'
 end
